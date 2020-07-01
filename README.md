@@ -1,0 +1,2 @@
+# SolScorp
+Solitarie Scorpio
