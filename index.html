@@ -1,0 +1,251 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Solitario Scorpion</title>
+<style>
+body
+{
+	background-image:url(./img/fondo.png);
+	background-repeat:no-repeat;
+}
+.CardField
+{
+	background-color:rgba(0,0,0,0.5);
+	width:90px;
+	min-height:126px;
+	margin-bottom:10px;
+}
+
+.CardField2
+{
+	background-color:rgba(0,0,0,0.5);
+	width:90px;
+	min-height:126px;
+	margin-bottom:10px;
+}
+
+.CardField2 div
+{
+	width:90px;
+	height:126px;
+}
+.CardField div
+{
+	/*margin-bottom:-50px;*/
+	width:90px;
+	height:126px;
+	
+	-webkit-transition: all 200ms ease-out;
+	-moz-transition: all 200ms ease-out;
+	-ms-transition: all 200ms ease-out;
+	-o-transition: all 200ms ease-out;
+	transition: all 200ms ease-out;
+}
+.Selected
+{
+	-webkit-box-shadow:inset 0px 20px 12px 0px rgba(255, 255, 0, 0.75);
+	-moz-box-shadow:   inset 0px 20px 12px 0px rgba(255, 255, 0, 0.75);
+	box-shadow:        inset 0px 20px 12px 0px rgba(255, 255, 0, 0.75);
+}
+.ProSelected
+{
+	-webkit-box-shadow:inset 0px 20px 12px 0px rgba(125, 255, 0, 0.75);
+	-moz-box-shadow:   inset 0px 20px 12px 0px rgba(125, 255, 0, 0.75);
+	box-shadow:        inset 0px 20px 12px 0px rgba(125, 255, 0, 0.75);
+}
+.Extras
+{
+	position:fixed; right:0px;
+	top:0px; 
+	background-color:rgba(0,0,0,0.2); color:#FFF; width:250px; font-family:Verdana, Geneva, sans-serif; font-size:18px; cursor:pointer;
+}
+.Extras div
+{
+	padding:20px;
+	border-width:1px;
+	border-style:solid;
+	border-color:#00C;
+}
+
+.Extras2
+{
+	background-color:rgba(0,0,0,0.2); color:#FFF; width:250px; font-family:Verdana, Geneva, sans-serif; font-size:18px; cursor:pointer;
+}
+.Extras2 div
+{
+	padding:20px;
+	border-width:1px;
+	border-style:solid;
+	border-color:#00C;
+}
+.PilasCompletas
+{
+	background-color:rgba(0,0,0,0.5);
+	width:360px;
+	min-height:126px;
+	margin-bottom:10px;
+}
+.PilasCompletas div
+{
+	width:90px;
+	height:126px;
+	float:left;
+	-webkit-transition: all 200ms ease-out;
+	-moz-transition: all 200ms ease-out;
+	-ms-transition: all 200ms ease-out;
+	-o-transition: all 200ms ease-out;
+	transition: all 200ms ease-out;
+}
+.MsgGood
+{
+    position:fixed;
+	top: -50px;
+    left: 500px;
+    min-width: 150px;
+	
+    background: rgba(0,0,0,0.5);
+    border-radius: 5px;
+	z-index:9999;
+	color:#FFF;
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:18px; 
+}
+.MsgGood.play
+{	     
+		-ms-animation: move 3s ease-in-out;
+		 -o-animation: move 3s ease-in-out;
+	   -moz-animation: move 3s ease-in-out;
+	-webkit-animation: move 3s ease-in-out;
+			animation: move 3s ease-in-out;
+}
+
+@-o-keyframes move {
+    75% {
+        top: 300px;
+    }
+	100% {
+        top: -50px;
+    }
+}
+@-ms-keyframes move {
+    75% {
+        top: 300px;
+    }
+	100% {
+        top: -50px;
+    }
+}
+@-moz-keyframes move {
+    75% {
+        top: 300px;
+    }
+	100% {
+        top: -50px;
+    }
+}
+@-webkit-keyframes move {
+    75% {
+        top: 300px;
+    }
+	100% {
+        top: -50px;
+    }
+}
+ 
+@keyframes move {
+    75% {
+        top: 300px;
+    }
+	100% {
+        top: -50px;
+    }
+}
+
+.Ver
+{
+	position:fixed;
+	top:0px;
+	height:250px;
+	width:295px;
+	
+	background: rgba(0,0,0,0.5);
+    border-radius: 5px;
+	z-index:9998;
+	color:#FFF;
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:18px; 
+	
+	-webkit-transition: all 1s ease-in-out;
+	-moz-transition: all 1s ease-in-out;
+	-ms-transition: all 1s ease-in-out;
+	-o-transition: all 1s ease-in-out;
+	transition: all 1s ease-in-out;
+
+}
+.Ver div
+{
+	margin:20px;
+	padding:5px;
+	border-width:1px;
+	border-style:solid;
+	border-color:#00C;
+	
+	background: rgba(0,0,0,0.5);
+    border-radius: 5px;
+}
+.Ver.No
+{
+	left:-300px;
+}
+.Ver.Si
+{
+	left:0px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="Extras">
+<div onclick="DeshacerMovimiento();">Deshacer Movimiento</div>
+<div onclick="ActivarMovimientoMagico(this);">Activar Movimiento Magico</div>
+<div onclick="ReAcomodarLasCartas();">Reacomodar las Cartas</div>
+</div>
+<table width="64%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><div id="Mazo" class="CardField2" onclick="RepartirRestoDelMazo();"></div></td>
+    <td><div class="Extras2">
+<div id="tiempo">Tiempo: 00:00</div>
+<div id="puntaje" >Puntaje: 0000000</div>
+</div></td>
+    <td align="center"><div id="PilasCompletas" class="PilasCompletas"></div></td>
+  </tr>
+</table>
+<table width="64%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td style="vertical-align:top;"><div id="Columna1" class="CardField"></div></td>
+	<td style="vertical-align:top;"><div id="Columna2" class="CardField"></div></td>
+    <td style="vertical-align:top;"><div id="Columna3" class="CardField"></div></td>
+    <td style="vertical-align:top;"><div id="Columna4" class="CardField"></div></td>
+    <td style="vertical-align:top;"><div id="Columna5" class="CardField"></div></td>
+    <td style="vertical-align:top;"><div id="Columna6" class="CardField"></div></td>
+    <td style="vertical-align:top;"><div id="Columna7" class="CardField"></div></td>
+  </tr>
+</table>
+<div id="MenuDiv" class="Ver Si">
+<div onclick="NuevoJuego();" style="cursor:pointer;">Nuevo Juego</div>
+<div>
+	<p>&Uacute;ltimo Juego:</p>
+	<p id="Estats">Puntaje: - <br />Tiempo: - </p>
+</div>
+</div>
+<div id="DivMensaje" class="MsgGood"></div>
+<div style="visibility:collapse;">
+<div id="AnyCard"><div style="background-image:url(./img/cards.png); background-repeat:no-repeat; background-position:[equis]px [yis]px;" title="[titulo]" onclick="Seleccionar(this);"></div></div>
+</div>
+<script src="coregame.js" language="javascript" type="text/javascript"></script>
+
+</body>
+</html>
